@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:f="http://java.sun.com/jsp/jstl/fmt" version="2.0">
+	<jsp:directive.page contentType="text/html; charset=UTF-8"
+		pageEncoding="UTF-8" session="true" />
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+	<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>cart</title>
+<link rel="StyleSheet"
+	href="${pageContext.request.contextPath}/res/nicepage.css"
+	type="text/css" title="cse4413" media="screen, print" />
+
+<link rel="StyleSheet"
+	href="${pageContext.request.contextPath}/res/Home.css"
+	type="text/css" title="cse4413" media="screen, print" />
+	
+	<link rel="StyleSheet"
+	href="${pageContext.request.contextPath}/res/dongey.css"
+	type="text/css" title="cse4413" media="screen, print" />
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/res/re.js">;</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/res/cart.js">;</script>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the side navigation */
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+}
+
+#d1, #d2, #d3{
+    display: inline-block;
+}
+
+
+
+
+/* Side navigation links */
+.sidenav a {
+  color: white;
+  padding: 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color on hover */
+.sidenav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Style the content */
+.content {
+  margin-left: 200px;
+  padding-left: 20px;
+}
+
+.money {
+	text-align:right;
+}
+
+
+
+</style>
+</head>
+<body>
+
+
+<div class="sidenav">
+  <p ><b>Order Summary</b></p>
+                <a>Product Subtotal</a><a class="money">
+                <c:if test="${subtotal == null}">
+						$ 0
+						</c:if>
+						<c:if test="${subtotal != null}">
+						$ ${subtotal}
+						</c:if>
+                
+                
+                </a><br/>
+                <a>Estimated Shipping</a><a class="money">$ 0</a><br/>
+                <a>Estimated Taxes</a><a class="money">
+                <c:if test="${tax == null}">
+						$ 0
+						</c:if>
+						<c:if test="${tax != null}">
+						$ ${tax}
+						</c:if>
+                
+                </a><br/>
+                <a><b>Estimated Total</b></a><a class="money">
+                
+                <c:if test="${total == null}">
+						$ 0
+						</c:if>
+						<c:if test="${total != null}">
+						$ ${total}
+						</c:if>
+                
+                </a><br/>
+                <input type="image" src="pic/checkout.png" style="width:180px; height:70px" border="0" alt="checkout" onclick="checkLogin();"/>
+</div>
+
+<div class="content">
+  	<div class="navbar">
+			<div class="logo">
+				<img src="pic/ic_launch.png" alt="dongey" width="125px" />
+			</div>
+			<div class="searchContainer">
+				<table class="elements">
+					<tr>
+						<form action="search" method="get" onsubmit="return searchValidate();">
+							<td><input type="text" placeholder="search" class="search"
+								name="title" id="title"/></td>
+							<td>
+							<input type="image" src="pic/search.png" border="0" alt="Search"/>
+							
+							</td>
+						</form>
+					</tr>
+				</table>
+			</div>
+
+
+
+
+			<nav>
+				<div class="wrapper">
+					<ul>
+
+
+						<c:choose>
+							<c:when test="${status eq 1}">
+								<li>Hello,${member.firstname}
+									
+								</li>
+								
+								<li><img class="user_img" src="userIMG/${member.img}"/>
+								<ul>
+										<li>Orders</li>
+										<li><a href="edit">Edit</a></li>
+										<li><a href="logout">Logout</a></li>
+
+									</ul>
+								
+								
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="login">login</a></li>
+							</c:otherwise>
+
+
+
+						</c:choose>
+
+
+
+						<li><a href="main">Home</a></li>
+						<li><a href="content">Category</a></li>
+
+						<li><a href="contact">Contact</a></li>
+						<li><a href="">
+						<c:if test="${cartCount == null}">
+						Cart(0)
+						</c:if>
+						<c:if test="${cartCount != null}">
+						Cart(${cartCount})
+						</c:if>
+						
+						</a></li>
+					</ul>
+
+				</div>
+			</nav>
+		</div>
+		
+		
+		<section class="u-clearfix u-section-1" id="sec-a408">
+		<div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+        <div class="u-layout">
+          <div class="u-layout-row">
+            
+            <div class="u-container-style u-layout-cell u-size-54 u-layout-cell-2">
+              <div class="u-container-layout u-container-layout-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+		 <div class="u-clearfix u-gutter-0 u-layout-wrap u-layout-wrap-2">
+      <div id="categoryShow"></div>
+      
+      
+      
+      
+      
+      <div id="all">
+     <c:forEach var="item" items="${cart}">
+      		
+      	 <div class="u-layout">
+          <div class="u-layout-row">
+            <div class="u-container-style u-layout-cell u-size-9 u-layout-cell-3">
+              <div class="u-container-layout u-container-layout-3">
+                <img src="bookIMG/${item.img}" alt="" class="u-expanded-width u-image u-image-default u-image-1" data-image-width="1280" data-image-height="989"/>
+              </div>
+            </div>
+            <div class="u-container-style u-layout-cell u-size-42 u-layout-cell-4">
+              <div class="u-container-layout u-container-layout-4">
+                <div class="u-container-style u-group u-group-1">
+                  <div class="u-container-layout u-container-layout-5">
+                    <a href="productDeatil?bid=${item.bid}" class="u-active-none u-border-2 u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-2">${item.title}</a>
+                  
+                   
+                   <br/>
+                   <div id="d1">
+                    <input type="image" src="pic/minus.png" style="width:20px; height=20px;" border="0" onclick="minusFromCart('${item.bid}');" alt="minus"/>
+                    </div>
+                    <div id="d2">
+                   
+                    <p id="itemcount">${item.itemcount}</p>
+                    </div>
+                     <div id="d3">
+                  <input type="image" src="pic/plus.png" style="width:20px;height=20px;" onclick="addToCart('${item.bid}');" border="0" alt="plus"/>
+                  </div>
+                    
+                    <br/>
+                   
+                   <input type="image" src="pic/remove.png" style="width:25px; height=25px;" onclick="removeFromCart('${item.bid}');" border="0" alt="remove"/>
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="u-container-style u-layout-cell u-size-9 u-layout-cell-5">
+              <div class="u-container-layout u-container-layout-6">
+              
+             
+              
+                
+                <p class="u-text u-text-default u-text-4">$ ${item.itemcount * item.price}<br/>
+                </p>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      
+     </c:forEach>
+      
+       </div>
+       
+        
+        
+        
+      </div>
+      </section>
+</div>
+
+<script>
+function checkLogin(){
+	
+	var xhr = new XMLHttpRequest();
+	var email = '${member.email}';
+	var cartCount="${cartCount}"
+	
+	
+	
+	if(email == "" || email == null){
+		alert("Please log in first");
+	}else if(cartCount == 0 || cartCount == null){
+		alert("Your cart is empty!");
+		
+	}else{
+		window.location.href="checkout";
+	}
+	
+}
+
+
+
+
+</script>
+
+
+
+
+
+   
+
+</body>
+	</html>
+</jsp:root>

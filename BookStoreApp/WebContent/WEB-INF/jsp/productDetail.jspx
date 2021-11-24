@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:f="http://java.sun.com/jsp/jstl/fmt" version="2.0">
+	<jsp:directive.page contentType="text/html; charset=UTF-8"
+		pageEncoding="UTF-8" session="true" />
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+	<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Insert title here</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'></meta>
+<link rel="StyleSheet"
+	href="${pageContext.request.contextPath}/res/productdetail.css"
+	type="text/css" media="screen, print" />
+
+<link rel="StyleSheet"
+	href="${pageContext.request.contextPath}/res/review.css"
+	type="text/css" media="screen, print" />
+
+<link rel="StyleSheet"
+	href="${pageContext.request.contextPath}/res/np.css" type="text/css"
+	media="screen, print" />
+
+<link rel="StyleSheet"
+	href="${pageContext.request.contextPath}/res/dongey.css"
+	type="text/css" title="cse4413" media="screen, print" />
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/res/cart.js">
+	;
+</script>
+</head>
+<body>
+<div class="navbar">
+			
+			<div class="searchContainer">
+				<table class="elements">
+					<tr>
+						<form action="search" method="get" onsubmit="return searchValidate();">
+							<td><input type="text" placeholder="search" class="search"
+								name="title" id="title"/></td>
+							<td>
+							<input type="image" src="pic/search.png" border="0" alt="Search"/>
+							
+							</td>
+						</form>
+					</tr>
+				</table>
+			</div>
+
+
+
+
+			<nav>
+				<div class="wrapper">
+					<ul>
+
+
+						<c:choose>
+							<c:when test="${status eq 1}">
+								<li>Hello,${member.firstname}
+									
+								</li>
+								
+								<li><img class="user_img" src="userIMG/${member.img}"/>
+								<ul>
+										<li>Orders</li>
+										<li><a href="edit">Edit</a></li>
+										<li><a href="logout">Logout</a></li>
+
+									</ul>
+								
+								
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="login">login</a></li>
+							</c:otherwise>
+
+
+
+						</c:choose>
+
+
+
+						<li><a href="main">Home</a></li>
+						<li><a href="content">Category</a></li>
+
+						<li><a href="contact">Contact</a></li>
+						<li><a href="cart">
+						<c:if test="${cartCount == null}">
+						Cart(0)
+						</c:if>
+						<c:if test="${cartCount != null}">
+						Cart(${cartCount})
+						</c:if>
+						
+						</a></li>
+					</ul>
+
+				</div>
+			</nav>
+		</div>
+	<div class="card-wrapper">
+		<div class="card">
+			<!-- card left -->
+			<div class="product-imgs">
+				<div class="img-display">
+					<div class="img-showcase">
+						<img src="bookIMG/${book.img}" alt="book image" />
+
+					</div>
+				</div>
+
+			</div>
+			<!-- card right -->
+			<div class="product-content">
+				<h2 class="product-title">${book.title}</h2>
+
+				<div class="product-rating">
+					<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+						class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+						class="fas fa-star-half-alt"></i> <span>Book ID: ${book.bid}</span>
+				</div>
+
+				<div class="product-price">
+
+					<p class="new-price">
+						Price: <span>$ ${book.price}</span>
+					</p>
+				</div>
+
+				<div class="product-detail">
+
+					<ul>
+						<c:if test="${book.count gt 0 }">
+							<li>Available: <span>${book.count} in stock</span></li>
+						</c:if>
+
+						<c:if test="${book.count le 0 }">
+							<li>Available: <span>out of stock</span></li>
+						</c:if>
+
+						<li>Category: <span>${book.category}</span></li>
+						<li>Shipping Area: <span>All over the world</span></li>
+						<li>Shipping Fee: <span>Free</span></li>
+					</ul>
+				</div>
+
+				<div class="purchase-info">
+					
+					<button type="button" class="btn" onclick="addToCart('${book.bid}');">
+						Add to Cart <i class="fas fa-shopping-cart"></i>
+					</button>
+					
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+
+	<hr />
+	<div class="u-body">
+		<section class="u-align-left u-clearfix u-section-1" id="sec-34b9">
+			<div class="u-clearfix u-sheet u-sheet-1">
+				<p class="u-text u-text-1">
+					<br />
+				</p>
+				<p class="u-text u-text-2">Reviews:</p>
+				<c:forEach var="review" items="${reviews}">
+
+
+
+					<div
+						class="u-clearfix u-expanded-width u-gutter-0 u-layout-wrap u-layout-wrap-1">
+						<div class="u-layout">
+							<div class="u-layout-row">
+								<div
+									class="u-container-style u-layout-cell u-size-12 u-layout-cell-1">
+									<div class="u-container-layout u-container-layout-1">
+										<img src="userIMG/${review.member.img}" alt=""
+											class="u-image u-image-circle u-image-1"
+											data-image-width="400" data-image-height="265" />
+										<p class="u-text u-text-default u-text-3">${review.member.firstname}<br />
+										</p>
+									</div>
+								</div>
+								<div
+									class="u-container-style u-layout-cell u-size-48 u-layout-cell-2">
+									<div class="u-container-layout u-container-layout-2">
+
+										<p class="u-text u-text-default u-text-4">Rating: ${review.rating}</p>
+										<br />
+										<p class="u-text u-text-default u-text-4">comment:
+											${review.comment}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+				<h2 class="u-text u-text-5">Write your Review</h2>
+				<div class="u-form u-form-1">
+					<form action="#" method="POST"
+						class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form"
+						style="padding: 10px" source="custom" name="form">
+						<p>Please select your recommendation level:</p>
+						<br /> <input type="radio" id="rating1" name="rating" value="Highly-Recommend"/><label
+							for="rating1">Highly-Recommend</label><br/><br/>
+						<input type="radio" id="rating2" name="rating" value="Recommend"/><label
+							for="rating2">Recommend</label><br/><br/>
+						<input type="radio" id="rating3" name="rating" value="Not-Recommend"/><label
+							for="rating3">Not-Recommend</label><br/><br/>
+
+						<div class="u-form-group u-form-message">
+							<label for="message-3b9a" class="u-form-control-hidden u-label">Message</label>
+							<textarea placeholder="Enter your message" rows="4" cols="50"
+								id="message-3b9a" name="message"
+								class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white"
+								required="">write your review.</textarea>
+						</div>
+						<div class="u-align-left u-form-group u-form-submit">
+							<button onclick="insertReview('insertReview'); return false;" type="submit" class="u-btn u-btn-submit u-button-style">Submit</button>
+							
+						</div>
+						<div class="u-form-send-message u-form-send-success">Thank
+							you! Your message has been sent.</div>
+						<div class="u-form-send-error u-form-send-message">Unable to
+							send your message. Please fix errors then try again.</div>
+						<input type="hidden" value="" name="recaptchaResponse" />
+					</form>
+				</div>
+			</div>
+		</section>
+	</div>
+<script>
+function insertReview(url){
+	
+	var xhr = new XMLHttpRequest();
+	var bookid = '${book.bid}';
+	var email = '${member.email}';
+	var rd = null;
+	
+	var data = '';
+	
+	
+	if(email == "" || email == null){
+		alert("Please log in first");
+	}else{
+		data += "bid=" + bookid + "&amp;email=" + email;
+		data += "&amp;comment=" + document.getElementById("message-3b9a").value + "&amp;rating=";
+		
+		
+		
+		
+		if(document.getElementById("rating1").checked){
+			data += document.getElementById("rating1").value;
+		}
+		
+		
+		if(document.getElementById("rating2").checked){
+			data += document.getElementById("rating2").value;
+		}
+		
+		if(document.getElementById("rating3").checked){
+			data += document.getElementById("rating3").value;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		xhr.open("POST",url,true);
+		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xhr.onreadystatechange = function(){
+			handler(xhr);
+		};
+		xhr.send(data);
+	}
+	
+}
+
+function handler(r){
+	if((r.readyState == 4) &amp;&amp; (r.status == 200)){
+		var rt = JSON.parse(r.responseText);
+		if(rt.errMessage == null){
+			alert("Adding Review Successful!");
+			window.location.reload();
+			
+			
+		}else{
+			alert("Adding Review Unsuccessful!");
+				
+			
+		}
+	}
+}
+
+
+
+</script>
+</body>
+	</html>
+</jsp:root>

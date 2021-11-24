@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:directive.page contentType="text/html; charset=ISO-8859-1" 
+		pageEncoding="ISO-8859-1" session="false"/>
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Insert title here</title>
+</head>
+<body>
+month
+<br/>
+<a href="getbyMonth?month=1">1</a>
+<br/>
+<a href="getbyMonth?month=2">2</a>
+<br/>
+<a href="getbyMonth?month=3">3</a>
+<br/>
+<a href="getbyMonth?month=4">4</a>
+<br/>
+<a href="getbyMonth?month=5">5</a>
+<br/>
+<a href="getbyMonth?month=6">6</a>
+<br/>
+<a href="getbyMonth?month=7">7</a>
+<br/>
+<a href="getbyMonth?month=8">8</a>
+<br/>
+<a href="getbyMonth?month=9">9</a>
+<br/>
+<a href="getbyMonth?month=10">10</a>
+<br/>
+<a href="getbyMonth?month=11">11</a>
+<br/>
+<a href="getbyMonth?month=12">12</a>
+<br/>
+</body>
+</html>
+</jsp:root>

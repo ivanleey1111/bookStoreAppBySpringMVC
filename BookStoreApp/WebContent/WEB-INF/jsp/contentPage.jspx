@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:f="http://java.sun.com/jsp/jstl/fmt" version="2.0">
+	<jsp:directive.page contentType="text/html; charset=UTF-8"
+		pageEncoding="UTF-8" session="true" />
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+	<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Insert title here</title>
+<link rel="StyleSheet"
+	href="${pageContext.request.contextPath}/res/nicepage.css"
+	type="text/css" title="cse4413" media="screen, print" />
+
+<link rel="StyleSheet"
+	href="${pageContext.request.contextPath}/res/Home.css"
+	type="text/css" title="cse4413" media="screen, print" />
+	
+	<link rel="StyleSheet"
+	href="${pageContext.request.contextPath}/res/dongey.css"
+	type="text/css" title="cse4413" media="screen, print" />
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/res/re.js">;</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/res/cart.js">;</script>
+</head>
+<body>
+<div class="navbar">
+			<div class="logo">
+				<img src="pic/ic_launch.png" alt="dongey" width="125px" />
+			</div>
+			<div class="searchContainer">
+				<table class="elements">
+					<tr>
+						<form action="search" method="get" onsubmit="return searchValidate();">
+							<td><input type="text" placeholder="search" class="search"
+								name="title" id="title"/></td>
+							<td>
+							<input type="image" src="pic/search.png" border="0" alt="Search"/>
+							
+							</td>
+						</form>
+					</tr>
+				</table>
+			</div>
+
+
+
+
+			<nav>
+				<div class="wrapper">
+					<ul>
+
+
+						<c:choose>
+							<c:when test="${status eq 1}">
+								<li>Hello,${member.firstname}
+									
+								</li>
+								
+								<li><img class="user_img" src="userIMG/${member.img}"/>
+								<ul>
+										<li>Orders</li>
+										<li><a href="edit">Edit</a></li>
+										<li><a href="logout">Logout</a></li>
+
+									</ul>
+								
+								
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="login">login</a></li>
+							</c:otherwise>
+
+
+
+						</c:choose>
+
+
+
+						<li><a href="main">Home</a></li>
+						<li><a href="content">Category</a></li>
+
+						<li><a href="contact">Contact</a></li>
+						<li><a href="cart">
+						<c:if test="${cartCount == null}">
+						Cart(0)
+						</c:if>
+						<c:if test="${cartCount != null}">
+						Cart(${cartCount})
+						</c:if>
+						
+						
+						</a></li>
+					</ul>
+
+				</div>
+			</nav>
+		</div>
+
+    <section class="u-clearfix u-section-1" id="sec-a408">
+      <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+        <div class="u-layout">
+          <div class="u-layout-row">
+            <div class="u-container-style u-layout-cell u-size-6 u-layout-cell-1">
+              <div class="u-container-layout u-container-layout-1">
+                <p class="u-text u-text-default u-text-1">Category</p>
+                <a href="content" class="u-active-none u-border-5 u-border-active-palette-2-dark-1 u-border-hover-black u-border-palette-1-base u-btn u-button-style u-hover-none u-none u-text-body-color u-btn-1">All</a>
+								
+   									<br/>
+                <c:forEach var="item" items="${categories}">  
+								<a href="bookByCategory?category=${item}" class="u-active-none u-border-5 u-border-active-palette-2-dark-1 u-border-hover-black u-border-palette-1-base u-btn u-button-style u-hover-none u-none u-text-body-color u-btn-1">${item}</a>
+								
+   									<br/>
+								</c:forEach>
+              </div>
+            </div>
+            <div class="u-container-style u-layout-cell u-size-54 u-layout-cell-2">
+              <div class="u-container-layout u-container-layout-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="u-clearfix u-gutter-0 u-layout-wrap u-layout-wrap-2">
+      <div id="categoryShow"></div>
+      
+      <div id="all">
+      <c:forEach var="item" items="${books}">
+      		
+      	 <div class="u-layout">
+          <div class="u-layout-row">
+            <div class="u-container-style u-layout-cell u-size-9 u-layout-cell-3">
+              <div class="u-container-layout u-container-layout-3">
+                <img src="bookIMG/${item.img}" alt="" class="u-expanded-width u-image u-image-default u-image-1" data-image-width="1280" data-image-height="989"/>
+              </div>
+            </div>
+            <div class="u-container-style u-layout-cell u-size-42 u-layout-cell-4">
+              <div class="u-container-layout u-container-layout-4">
+                <div class="u-container-style u-group u-group-1">
+                  <div class="u-container-layout u-container-layout-5">
+                    <a href="productDeatil?bid=${item.bid}" class="u-active-none u-border-2 u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-2">${item.title}</a><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 53.867 53.867" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4f12"></use></svg><svg class="u-svg-content" viewBox="0 0 53.867 53.867" x="0px" y="0px" id="svg-4f12" style="enable-background:new 0 0 53.867 53.867;"><polygon style="fill:currentColor;" points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798 
+	10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 "></polygon></svg></span>
+                    <p class="u-text u-text-default u-text-2">${item.bid}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="u-container-style u-layout-cell u-size-9 u-layout-cell-5">
+              <div class="u-container-layout u-container-layout-6">
+              
+              <c:if test="${item.count gt 0 }">
+               <p class="u-text u-text-default u-text-3">${item.count} In Stock</p>
+              </c:if>
+              
+              <c:if test="${item.count le 0 }">
+               <p class="u-text u-text-default u-text-3">Out of Stock</p>
+              </c:if>
+              
+                
+                <p class="u-text u-text-default u-text-4">$ ${item.price}<br/>
+                </p>
+                <input type="image" onclick="addToCart('${item.bid}');" src="pic/addtocart.png" style="width:200px; height=100px;" border="0" alt="addtocart"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      
+      </c:forEach>
+      
+       </div>
+       
+        
+        
+        
+      </div>
+    </section>
+
+</body>
+	</html>
+</jsp:root>
